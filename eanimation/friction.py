@@ -54,6 +54,17 @@ class fr(Scene):
             ShowCreation(lines[31]),
             Write(surface_t),
         )
-
         self.wait()
-        
+        box = Rectangle(height = 0.5, width = 1, color = RED)
+        box.to_edge(LEFT, 1)
+        box.shift(2.5 * DOWN)
+        box_ = Rectangle(height = 0.5, width = 1, color = RED)
+        box_.to_edge(RIGHT, 1)
+        box_.shift(2.5 * DOWN)
+        #box.rotate(7 * PI/180)
+        self.play(
+            GrowFromCenter(box),
+        )
+        self.play(
+            Transform(box, box_, run_time = 4)
+        )
