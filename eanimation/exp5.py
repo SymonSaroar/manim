@@ -35,11 +35,11 @@ class fr(Scene):
             FadeOutAndShiftDown(line),
         )
         
-        F = Arrow(box.get_center(),box.get_center() + RIGHT * 3).rotate(30 * DEGREES, about_point = box.get_center())
+        F = Arrow(box.get_center(),box.get_center() + RIGHT * 3, buff = 0).rotate(30 * DEGREES, about_point = box.get_center())
         F_ = Arrow(box.get_center(),box.get_center() + RIGHT * 3).rotate(30 * DEGREES, about_point = box.get_center())
-        Fx = Arrow(box.get_center(),box.get_center() + RIGHT * 3, dashed_segment_length = 0.5).rotate(30 * DEGREES, about_point = box.get_center()).set_color(GREEN).set_opacity(0.7)
+        Fx = Arrow(box.get_center(),box.get_center() + RIGHT * 3, buff = 0, dashed_segment_length = 0.5).rotate(30 * DEGREES, about_point = box.get_center()).set_color(GREEN).set_opacity(0.7)
         Fx_ = Arrow(box.get_center(),box.get_center() + RIGHT * 3).rotate(30 * DEGREES, about_point = box.get_center()).set_color(YELLOW).set_opacity(0.7)
-        Fy = Arrow(box.get_center(),box.get_center() + RIGHT * 3, dashed_segment_length = 0.5).rotate(120 * DEGREES, about_point = box.get_center()).set_color(GREEN).set_opacity(0.7)
+        Fy = Arrow(box.get_center(),box.get_center() + RIGHT * 3, buff = 0, dashed_segment_length = 0.5).rotate(120 * DEGREES, about_point = box.get_center()).set_color(GREEN).set_opacity(0.7)
         Fy_ = Arrow(box.get_center(),box.get_center() + RIGHT * 3).rotate(120 * DEGREES, about_point = box.get_center()).set_color(ORANGE).set_opacity(0.7)
         p2 = Fx.get_end()
         p3 = Fy.get_end()
@@ -48,25 +48,14 @@ class fr(Scene):
             ShowCreation(F),
             ShowCreation(Fx),
         )
-        for i in range(30, 61, 30):
-            scl1 = ((3*cos(i * DEGREES)) / 3)
-            scl2 = ((3*sin(i * DEGREES)) / 3)
-            if i == 30:
-                self.play(
-                    ApplyMethod(F.set_opacity, 0.5),
-                    ApplyMethod(F.rotate, 30 * DEGREES, {"about_point": box.get_center()}),
-                    
-                    ShowCreation(Fy),
-                    ApplyMethod(Fx.put_start_and_end_on, box.get_center(), (box.get_center() + (p2 - box.get_center()) * scl1)),
-                )
-            else:
-                self.play(   
-                    ApplyMethod(F.set_opacity, 0.25), 
-                    ApplyMethod(F.rotate, 30 * DEGREES, {"about_point": box.get_center()}),
-                    
-                    ApplyMethod(Fy.put_start_and_end_on, box.get_center(), (box.get_center() + (p3 - box.get_center()) * scl2)),
-                    ApplyMethod(Fx.put_start_and_end_on, box.get_center(), (box.get_center() + (p2 - box.get_center()) * scl1)),
-                )
+        scl1 = ((3*cos(60 * DEGREES)) / 3)
+        scl2 = ((3*sin(60 * DEGREES)) / 3)
+        self.play(
+            Rotating(F, radians = 60 * DEGREES, run_time = 1, about_point = box.get_center()),
+            ApplyMethod(Fy.put_start_and_end_on, box.get_center(), (box.get_center() + (p3 - box.get_center()) * scl2), run_time = 1),
+            ApplyMethod(Fx.put_start_and_end_on, box.get_center(), (box.get_center() + (p2 - box.get_center()) * scl1), run_time = 1),
+        )
+        
         self.play(ApplyMethod(F.set_opacity, 0.5))
         W = Arrow(box.get_center(), box.get_center() + DOWN * 2)
         Wx = Arrow(box.get_center(), box.get_center() + DOWN * 2).set_color(BLUE)

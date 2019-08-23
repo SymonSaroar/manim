@@ -10,7 +10,7 @@ class fr(Scene):
         text = VGroup(text1, text2, text3).arrange(DOWN)
         text.scale(0.65)
         text.to_corner(UP + LEFT)
-        line = Line(2.5 * UP, 3 * DOWN)
+        line = Line(2.475 * UP, 3 * DOWN)
         boy = Annulus(inner_radius = 0.01, outer_radius = 0.4, color = RED)
         m = TextMobject("{\\small m")
         m.move_to(boy).set_color(GOLD)
@@ -42,8 +42,8 @@ class fr(Scene):
         text = VGroup(text1, text2).arrange(DOWN).scale(0.75)
         text.to_edge(RIGHT)
 
-        T = Arrow(boy.get_center(), boy.get_center() + UP * 2.5)
-        Tt = TextMobject("{\\small $T =$}")
+        T = Arrow(boy.get_center(), boy.get_center() + UP * 2.5).set_color(BLUE)
+        Tt = TextMobject("{\\small $T$}","{$=$}")
         Tt.next_to(T, RIGHT)
         self.play(
             Write(text),
@@ -93,12 +93,12 @@ class fr(Scene):
         m_ = TextMobject("{\\small m")
         m_.move_to(boy_).set_color(GOLD)
         a_ = Arrow(boy_.get_center() + LEFT * 0.25, boy_.get_center() + LEFT * 0.25 + DOWN * 2.5)
-        T_ = Arrow(boy_.get_center(), boy_.get_center() + UP * 1.5)
+        T_ = Arrow(boy_.get_center(), boy_.get_center() + UP * 1.5).set_color(BLUE)
         at_ = TextMobject("$a$")
         at_.next_to(a_, LEFT)
         mgt_ = TextMobject("$a$")
         mgt_.move_to(mgt[2])
-        Tt_ = TextMobject("{\\tiny $T$}", "{\\small $=$}")
+        Tt_ = TextMobject("{\\tiny $T$}")
         Tt_.next_to(T, RIGHT)
         gr = VGroup(line, a, T, at, mgt, Tt, m, boy)
         self.wait(2)
@@ -111,7 +111,7 @@ class fr(Scene):
             Transform(T, T_, run_time = 6),
             Transform(at, at_, run_time = 6),
             Transform(mgt[2], mgt_, run_time = 6),
-            Transform(Tt, Tt_, run_time = 6),
+            Transform(Tt[0], Tt_, run_time = 6),
         )
         
         self.wait(1)
