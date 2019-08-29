@@ -42,8 +42,13 @@ class CoordinateSystem():
         """Abbreviation for point_to_coords"""
         return self.point_to_coords(point)
 
-    def get_axes(self):
-        raise Exception("Not implemented")
+    def get_axis(self, min_val, max_val, axis_config):
+        new_config = merge_config([
+            axis_config,
+            {"x_min": min_val, "x_max": max_val},
+            self.number_line_config,
+        ])
+        return NumberLine(**new_config)
 
     def get_axis(self, index):
         return self.get_axes()[index]

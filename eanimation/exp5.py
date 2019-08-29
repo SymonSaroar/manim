@@ -58,6 +58,7 @@ class fr(Scene):
             ShowCreation(Fx),
             
         )
+        self.wait()
         scl1 = ((3*cos(60 * DEGREES)) / 3)
         scl2 = ((3*sin(60 * DEGREES)) / 3)
         ft = Arc(30 * DEGREES, 60 * DEGREES, arc_center = box.get_center(), radius = 0.75)
@@ -170,7 +171,7 @@ class fr(Scene):
             ShowCreation(box2),
         )
         Fr = Arrow(box2.get_center(), box2.get_center() + 3 * LEFT, buff = 0)
-        Frt = TextMobject("\\tiny Friction = $\\mu * R $")
+        Frt = TextMobject("\\tiny    = $\\mu * R $")
         Frt.next_to(Fr, UP)
         Rr = Arrow(box2.get_center(), box2.get_center() + 2 * DOWN, buff = 0)
         Rrt = TextMobject("\\tiny $R$")
