@@ -306,16 +306,50 @@ class SceneFileWriter(object):
                 fp.write("file \'{}\'\n".format(pf_path))
 
         movie_file_path = self.get_movie_file_path()
+        module_directory = self.output_directory or self.get_default_module_directory()
         commands = [
             FFMPEG_BIN,
             '-y',  # overwrite output file if it exists
             '-f', 'concat',
             '-safe', '0',
-            '-i', file_list,
-            '-loglevel', 'error',
-            '-c', 'copy',
-            movie_file_path
-        ]
+            '-i', file_list]
+        if self.save_pngs:
+            file_name = self.file_name or self.get_default_scene_name()
+            if consts.VIDEO_DIR != "":
+                image_dir = guarantee_existence(os.path.join(
+                    consts.VIDEO_DIR,
+                    module_directory,
+                    self.get_resolution_directory(),
+                    f"{file_name}_pngs",
+                ))
+            else:
+                image_dir = guarantee_existence(os.path.join(
+                    consts.VIDEO_OUTPUT_DIR,
+                    self.get_resolution_directory(),
+                    f"{file_name}_pngs",
+                ))
+            image_file_path = os.path.join(
+                image_dir,
+                add_extension_if_not_present(f'{file_name}%00001d', ".png")
+            )
+            commands += [
+            image_file_path,
+            '-hide_banner',
+            ]
+            self.image_dir_pngs = image_dir
+            
+        commands += ['-loglevel', 'error']
+        
+        if not self.save_as_gif:
+            commands +=[
+                '-c', 'copy',
+                movie_file_path
+            ]
+        if self.save_as_gif:
+            movie_file_path=self.gif_file_path
+            commands +=[
+                movie_file_path,
+            ]
         if not self.includes_sound:
             commands.insert(-1, '-an')
 
@@ -356,4 +390,6 @@ class SceneFileWriter(object):
         self.print_file_ready_message(movie_file_path)
 
     def print_file_ready_message(self, file_path):
+        if self.save_pngs:
+            print("\nPngs ready at {}\n".format(self.image_dir_pngs))
         print("\nFile ready at {}\n".format(file_path))

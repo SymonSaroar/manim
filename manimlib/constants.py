@@ -136,7 +136,7 @@ MEDIUM_QUALITY_CAMERA_CONFIG = {
 LOW_QUALITY_CAMERA_CONFIG = {
     "pixel_height": 480,
     "pixel_width": 854,
-    "frame_rate": 15,
+    "frame_rate": 10,
 }
 
 DEFAULT_PIXEL_HEIGHT = PRODUCTION_QUALITY_CAMERA_CONFIG["pixel_height"]
@@ -200,6 +200,7 @@ COLOR_MAP = {
     "DARK_BLUE": "#236B8E",
     "DARK_BROWN": "#8B4513",
     "LIGHT_BROWN": "#CD853F",
+    "DARK_RED": "#FF0000",
     "BLUE_E": "#1C758A",
     "BLUE_D": "#29ABCA",
     "BLUE_C": "#58C4DD",
