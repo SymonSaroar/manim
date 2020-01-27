@@ -7,7 +7,7 @@ else:
 
 class Dragon(MovingCameraScene):
     CONFIG = {
-        "iterations":15,
+        "iterations":20,
     }
     def construct(self):
         path = VGroup()
