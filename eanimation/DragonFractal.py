@@ -1,9 +1,4 @@
-old_version = False
-
-if old_version:
-    from big_ol_pile_of_manim_imports import *
-else:
-    from manimlib.imports import *
+from manimlib.imports import *
 
 class Dragon(MovingCameraScene):
     CONFIG = {
@@ -23,6 +18,9 @@ class Dragon(MovingCameraScene):
         for i in range(self.iterations):
             path.set_color_by_gradient(*self.colors)
             self.dup(path,i)
+        #####
+        ## Have to add flipper for twinDragon
+        ####
         self.wait()
 
     def dup(self,path,i):
