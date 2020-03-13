@@ -7,7 +7,8 @@ else:
 
 class Dragon(MovingCameraScene):
     CONFIG = {
-        "iterations":20,
+        "iterations":18,
+        "colors":[DARK_RED, YELLOW],
     }
     def construct(self):
         path = VGroup()
@@ -20,6 +21,7 @@ class Dragon(MovingCameraScene):
 
         self.target_path = self.get_all_paths(path,self.iterations)
         for i in range(self.iterations):
+            path.set_color_by_gradient(*self.colors)
             self.duplicate_path(path,i)
         self.wait()
 
